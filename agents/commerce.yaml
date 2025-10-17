@@ -1,0 +1,6 @@
+name: commerce
+model: gpt-5
+tools: [stripe.create_checkout, db.upsert_order]
+budgets: {max_cost_usd: 0.05, max_latency_ms: 8000}
+success_checks:
+  - "checkout_session.url startswith https://checkout.stripe.com/"

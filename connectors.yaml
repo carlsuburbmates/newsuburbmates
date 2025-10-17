@@ -1,0 +1,10 @@
+- name: stripe.create_checkout
+  base_url: https://api.stripe.com
+  method: POST
+  path: /v1/checkout/sessions
+  auth: api_key
+- name: db.upsert_order
+  base_url: neon://suburbmates-dev
+  method: SQL
+  statement_id: upsert_order
+  auth: service_account
