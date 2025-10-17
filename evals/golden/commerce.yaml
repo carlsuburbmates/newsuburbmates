@@ -1,0 +1,10 @@
+tasks:
+  - name: create_checkout
+    description: Create Stripe checkout session
+    expected: url startswith https://checkout.stripe.com/
+  - name: pay
+    description: Simulate payment
+    expected: status == succeeded
+  - name: verify_db_row
+    description: Verify order row in DB
+    expected: order.status == completed

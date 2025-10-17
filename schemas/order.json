@@ -1,0 +1,1 @@
+{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","required":["id","checkout_session_id","amount","currency","status"],"properties":{"id":{"type":"string"},"checkout_session_id":{"type":"string"},"amount":{"type":"number"},"currency":{"type":"string"},"status":{"type":"string"},"user_id":{"type":"string"},"created_at":{"type":"string","format":"date-time"}}}

@@ -29,6 +29,25 @@ export async function POST(req: NextRequest) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session;
       console.log('checkout.session.completed:', session.id);
+      // Upsert order in DB (stub: replace with actual DB call)
+      try {
+        // Example: call upsert_order_orders with session fields
+        // Replace with actual DB connector logic
+        await fetch(process.env.DB_UPSERT_ORDER_URL || '', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: session.id,
+            checkout_session_id: session.id,
+            amount: session.amount_total,
+            currency: session.currency,
+            status: 'completed',
+            user_id: session.customer_email || null
+          })
+        });
+      } catch (err) {
+        console.error('Order upsert failed:', err);
+      }
       break;
     }
     case 'payment_intent.succeeded': {

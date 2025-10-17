@@ -1,0 +1,12 @@
+metrics:
+  agent.success_rate:
+    description: Success rate of agent tasks
+    alert: false
+  agent.cost_usd_per_run:
+    description: Cost per agent run in USD
+    alert: false
+  stripe.error_rate:
+    description: Stripe error rate
+    alert:
+      threshold: 0.02
+      action: notify

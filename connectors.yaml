@@ -6,5 +6,5 @@
 - name: db.upsert_order
   base_url: neon://suburbmates-dev
   method: SQL
-  statement_id: upsert_order
+  statement_id: upsert_order_orders
   auth: service_account

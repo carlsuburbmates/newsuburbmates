@@ -1,0 +1,6 @@
+pii_redaction:
+  enabled: true
+  fields: [email, user_id]
+human_gate:
+  enabled: true
+  actions: [refund]
