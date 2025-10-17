@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "Start Dev", "type": "npm", "script": "dev", "problemMatcher": [] },
+    { "label": "Stripe: Listen", "type": "npm", "script": "stripe:listen", "problemMatcher": [] },
+    { "label": "Stripe: Test Checkout", "type": "npm", "script": "stripe:test", "problemMatcher": [] },
+    { "label": "Deploy", "type": "npm", "script": "deploy", "problemMatcher": [] },
+    {
+      "label": "Local Stripe E2E",
+      "dependsOn": ["Start Dev", "Stripe: Listen", "Stripe: Test Checkout"],
+      "dependsOrder": "sequence"
+    },
+    {
+      "label": "Update Docs Index",
+      "type": "npm",
+      "script": "docs:index",
+      "problemMatcher": []
+    },
+    { "label": "Sentry: Test", "type": "npm", "script": "sentry:test", "problemMatcher": [] },
+    { "label": "GA4: Ping", "type": "npm", "script": "ga:ping", "problemMatcher": [] },
+    {
+      "label": "Monitor Check",
+      "dependsOn": ["Sentry: Test", "GA4: Ping"],
+      "dependsOrder": "sequence"
+    }
+  ]
+}

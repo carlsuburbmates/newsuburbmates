@@ -6,21 +6,30 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "stripe:listen": "stripe listen --forward-to http://localhost:3000/api/stripe/webhook",
+    "stripe:test": "curl -X POST http://localhost:3000/api/stripe/checkout",
+    "deploy": "vercel deploy --prod",
+  "docs:index": "node auto-update-docs-index.js",
+  "sentry:test": "node scripts/sentry-test.js",
+  "ga:ping": "node scripts/ga4-ping.js"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.20.0",
     "@vercel/analytics": "^1.5.0",
     "next": "15.5.5",
     "openai": "^6.4.0",
+    "pg": "^8.16.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "stripe": "^19.1.0"
   },
   "devDependencies": {
+  "node-fetch": "^3.3.2",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.15.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

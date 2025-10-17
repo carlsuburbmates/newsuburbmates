@@ -1,0 +1,17 @@
+{
+  "desktopCommander.autoApproveCommands": {
+    "curl": true,
+    "pnpm run dev": true,
+    "pnpm build": true,
+    "pnpm approve-builds": true,
+    "echo": true,
+    "pkill": true,
+    "psql": true,
+    "node": true,
+    "next dev": true,
+    "next build": true,
+    "next": true,
+    "/^git (status|show|push|pull|add|commit|checkout|merge|fetch|log|diff|branch|remote|config|reset|rebase|stash|tag|init|clone|mv|rm|restore|switch|describe|blame|clean|submodule|archive|apply|cherry-pick|bisect|grep|worktree|notes|update-ref|cat-file|check-ignore|check-mailmap|check-ref-format|commit-graph|count-objects|credential|daemon|fsck|gc|hash-object|help|index-pack|ls-files|ls-remote|ls-tree|mailmap|merge-base|name-rev|pack-refs|prune|reflog|repack|replace|rev-list|rev-parse|show-ref|symbolic-ref|unpack-file|update-index|verify-pack|verify-tag|whatchanged|write-tree)\\b.*$/": true,
+    "/.*/": true
+  }
+}
