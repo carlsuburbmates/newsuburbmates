@@ -34,3 +34,21 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Documentation Workflow
+
+This project uses an automated documentation index. Whenever you add, remove, or edit any Markdown file in the `docs/` directory, you must update the documentation index by running:
+
+```bash
+pnpm docs:index
+```
+
+This will regenerate `docs/index.md` with an up-to-date list of documentation files. The script is defined in `package.json` as:
+
+```json
+"docs:index": "node auto-update-docs-index.js"
+```
+
+> **Tip:** Consider running this script before every commit that changes documentation, or set up a git hook to automate it.
+
+For more details, see the comments in `auto-update-docs-index.js`.

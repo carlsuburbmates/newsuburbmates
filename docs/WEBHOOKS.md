@@ -1,52 +1,65 @@
 
+
 # Stripe Webhook Testing Instructions
 
-This guide explains how to test your Stripe webhook integration locally using the Stripe CLI and VS Code.
+This guide explains how to test Stripe webhooks locally using the Stripe CLI and curl.
+
+## Prerequisites
+- Stripe CLI installed: https://stripe.com/docs/stripe-cli
+- Your local server running and accessible (e.g., `pnpm run dev`)
+- `STRIPE_WEBHOOK_SECRET` set in your `.env` file
 
 ## 1. Install Stripe CLI (if not already installed)
-
-```
+```bash
 npm i -g stripe
 stripe login
 ```
 
-## 2. Start the webhook listener
-
-You can use the VS Code task runner for one-click listening:
-
-- Open the Command Palette (⇧⌘P) → "Tasks: Run Task" → select **Stripe: Listen**
-
-Or run manually:
-
-```
-stripe listen --forward-to http://localhost:3000/api/stripe/webhook
+## 2. Start Your Local Server
+```bash
+pnpm run dev
 ```
 
-Copy the displayed webhook signing secret (e.g. `whsec_...`).
-
-## 3. Add the secret to your environment
-
-Edit `.env.local`:
-
+## 3. Forward Events from Stripe to Your Local Webhook Endpoint
+Replace `localhost:3000` with your local server address if different.
+```bash
+stripe listen --forward-to localhost:3000/api/stripe/webhook
 ```
-STRIPE_WEBHOOK_SECRET=whsec_********
+This will print a webhook signing secret. Copy it and set it as `STRIPE_WEBHOOK_SECRET` in your `.env` file.
+
+## 4. Trigger a Test Event
+You can trigger a test event using the Stripe CLI:
+```bash
+stripe trigger checkout.session.completed
+```
+Or for payment intent:
+```bash
+stripe trigger payment_intent.succeeded
 ```
 
-## 4. Start your Next.js app
+## 5. Manually Send a Webhook Event with curl
+To manually test your endpoint, you need to generate a Stripe signature. The Stripe CLI does this automatically, but for manual testing:
 
+### Example curl command (without signature verification):
+```bash
+curl -X POST http://localhost:3000/api/stripe/webhook \
+	-H "Content-Type: application/json" \
+	-d '{"id": "evt_test_webhook", "object": "event", "type": "checkout.session.completed"}'
 ```
-pnpm dev
-```
 
-## 5. Trigger a test event
+### To include a Stripe signature (advanced):
+Refer to Stripe docs: https://stripe.com/docs/webhooks/signatures
 
-Create a Checkout Session (POST to `/api/stripe/checkout`), open the returned `url`, and complete payment with test card `4242 4242 4242 4242`.
+## 6. Check Your Server Logs
+Your server should log the received event and process it according to your webhook handler logic.
 
-You should see a `checkout.session.completed` event in the terminal running `stripe listen`.
+## Troubleshooting
+- Ensure your local server is running and accessible.
+- Confirm `STRIPE_WEBHOOK_SECRET` matches the secret from Stripe CLI.
+- Check logs for signature verification errors.
 
-## 6. Verify webhook handling
-
-Check your application/database to confirm the event was processed as expected.
+---
+For more details, see [Stripe Webhooks Documentation](https://stripe.com/docs/webhooks).
 
 ---
 

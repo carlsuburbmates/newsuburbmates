@@ -3,6 +3,10 @@ import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '')
 
+export async function GET() {
+  return new NextResponse('Stripe test endpoint is live', { status: 200 })
+}
+
 export async function POST() {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || ''
   if (!webhookSecret) {
@@ -44,4 +48,3 @@ export async function POST() {
   return new NextResponse(JSON.stringify({ status: res.status, body: text }), { status: 200 })
 }
 
-export const runtime = 'nodejs'

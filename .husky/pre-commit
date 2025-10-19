@@ -1,0 +1,10 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run docs index update if docs changed
+git diff --cached --name-only | grep '^docs/.*\.md$' > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+  echo "Docs changed: running pnpm docs:index..."
+  pnpm docs:index
+  git add docs/index.md
+fi
